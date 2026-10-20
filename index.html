@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Mercadito — tu minimarket de confianza, rápido, fresco y cerca de ti." />
+  <title>Mercadito | Tu minimarket de confianza</title>
+  <style>
+    :root {
+      --green: #176b4d;
+      --green-dark: #0f5039;
+      --lime: #d7ef69;
+      --cream: #fbf8ef;
+      --ink: #18231f;
+      --muted: #6d7770;
+      --line: #e6eadf;
+      --white: #ffffff;
+      --orange: #f28c38;
+      --shadow: 0 16px 42px rgba(24, 35, 31, .09);
+      --radius: 22px;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: var(--ink);
+      background: var(--cream);
+      line-height: 1.5;
+    }
+    button, input { font: inherit; }
+    button { border: 0; cursor: pointer; }
+    a { color: inherit; text-decoration: none; }
+
+    .topbar {
+      background: var(--green-dark);
+      color: #eaf5e7;
+      padding: 9px 5vw;
+      font-size: .78rem;
+      letter-spacing: .02em;
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+    }
+    .topbar strong { color: var(--lime); }
+
+    header {
+      background: var(--white);
+      border-bottom: 1px solid var(--line);
+      position: sticky;
+      top: 0;
+      z-index: 20;
+    }
+    .nav {
+      width: min(1180px, 90vw);
+      margin: auto;
+      min-height: 82px;
+      display: flex;
+      align-items: center;
+      gap: 28px;
+    }
+    .brand { display: flex; align-items: center; gap: 11px; min-width: max-content; }
+    .brand-mark {
+      width: 42px; height: 42px; border-radius: 13px 13px 13px 4px;
+      background: var(--lime); color: var(--green-dark); display: grid; place-items: center;
+      font-size: 1.35rem; transform: rotate(-5deg);
+    }
+    .brand-name { font-size: 1.28rem; font-weight: 850; letter-spacing: -.05em; }
+    .brand-name span { color: var(--orange); }
+
+    .search {
+      flex: 1; display: flex; align-items: center; gap: 10px;
+      background: #f5f7f0; border: 1px solid var(--line); border-radius: 13px; padding: 0 15px;
+      max-width: 460px;
+    }
+    .search span { color: var(--muted); font-size: 1.1rem; }
+    .search input { width: 100%; border: 0; outline: 0; background: transparent; padding: 12px 0; color: var(--ink); }
+    .nav-links { display: flex; gap: 19px; font-size: .9rem; font-weight: 700; color: #53615a; }
+    .nav-links a:hover { color: var(--green); }
+    .cart-btn {
+      background: var(--green); color: white; border-radius: 13px; padding: 11px 14px;
+      display: flex; align-items: center; gap: 9px; font-weight: 750; white-space: nowrap;
+    }
+    .cart-count { background: var(--lime); color: var(--green-dark); border-radius: 50%; width: 21px; height: 21px; display: grid; place-items: center; font-size: .75rem; }
+
+    .hero {
+      width: min(1180px, 90vw); margin: 32px auto 56px; display: grid; grid-template-columns: 1.15fr .85fr;
+      gap: 26px; align-items: stretch;
+    }
+    .hero-copy { background: var(--lime); border-radius: var(--radius); padding: clamp(30px, 5vw, 64px); position: relative; overflow: hidden; }
+    .hero-copy::after { content: ""; width: 280px; height: 280px; border: 28px solid rgba(255,255,255,.24); border-radius: 50%; position: absolute; right: -115px; bottom: -155px; }
+    .eyebrow { text-transform: uppercase; letter-spacing: .14em; font-size: .72rem; font-weight: 850; color: var(--green); margin-bottom: 16px; }
+    h1 { font-size: clamp(2.5rem, 5vw, 5rem); line-height: .96; letter-spacing: -.075em; max-width: 630px; margin-bottom: 22px; }
+    .hero-copy p { max-width: 480px; font-size: 1.05rem; color: #405443; margin-bottom: 29px; }
+    .primary { display: inline-flex; background: var(--green); color: white; padding: 14px 21px; border-radius: 12px; font-weight: 800; transition: transform .2s, background .2s; }
+    .primary:hover { transform: translateY(-2px); background: var(--green-dark); }
+    .hero-card { background: var(--green); color: white; border-radius: var(--radius); padding: 29px; display: flex; flex-direction: column; justify-content: space-between; min-height: 350px; overflow: hidden; position: relative; }
+    .hero-card::before { content: ""; position: absolute; width: 210px; height: 210px; border-radius: 50%; background: var(--orange); right: -55px; top: 40px; opacity: .9; }
+    .hero-card::after { content: "🥕"; position: absolute; right: 41px; top: 73px; font-size: 6.5rem; transform: rotate(-12deg); }
+    .hero-card .tag { position: relative; z-index: 1; background: var(--lime); color: var(--green-dark); border-radius: 8px; padding: 6px 10px; font-size: .72rem; font-weight: 850; width: fit-content; }
+    .hero-card h2 { position: relative; z-index: 1; max-width: 210px; font-size: 2.05rem; line-height: 1; letter-spacing: -.06em; margin-top: auto; }
+    .hero-card small { position: relative; z-index: 1; color: #c8e5c9; margin-top: 9px; }
+
+    main { width: min(1180px, 90vw); margin: auto; }
+    .section-head { display: flex; justify-content: space-between; align-items: end; gap: 16px; margin-bottom: 22px; }
+    .section-head h2 { font-size: 1.85rem; letter-spacing: -.06em; }
+    .section-head p { color: var(--muted); font-size: .92rem; }
+    .category-row { display: flex; gap: 12px; overflow-x: auto; padding-bottom: 10px; margin-bottom: 46px; }
+    .category { min-width: 115px; background: white; border: 1px solid var(--line); border-radius: 17px; padding: 15px 12px; text-align: center; transition: .2s; }
+    .category:hover, .category.active { border-color: var(--green); transform: translateY(-3px); box-shadow: 0 8px 18px rgba(23,107,77,.1); }
+    .category.active { background: var(--green); color: white; }
+    .category-icon { font-size: 1.7rem; display: block; margin-bottom: 4px; }
+    .category span:last-child { font-size: .78rem; font-weight: 750; white-space: nowrap; }
+
+    .products { display: grid; grid-template-columns: repeat(4, 1fr); gap: 17px; margin-bottom: 70px; }
+    .product { background: white; border: 1px solid var(--line); border-radius: 18px; overflow: hidden; transition: transform .2s, box-shadow .2s; position: relative; }
+    .product:hover { transform: translateY(-5px); box-shadow: var(--shadow); }
+    .product.hide { display: none; }
+    .product-visual { height: 180px; display: grid; place-items: center; font-size: 5.1rem; position: relative; background: #eef6dc; }
+    .product:nth-child(2n) .product-visual { background: #fff0dd; }
+    .product:nth-child(3n) .product-visual { background: #e6f1ed; }
+    .badge { position: absolute; top: 11px; left: 11px; background: var(--orange); color: white; font-size: .67rem; border-radius: 6px; padding: 4px 7px; font-weight: 850; text-transform: uppercase; }
+    .product-info { padding: 16px; }
+    .product-category { color: var(--muted); text-transform: uppercase; font-size: .67rem; letter-spacing: .08em; font-weight: 800; }
+    .product h3 { font-size: .99rem; margin: 4px 0 13px; letter-spacing: -.02em; }
+    .product-bottom { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
+    .price { font-weight: 900; font-size: 1.1rem; color: var(--green-dark); }
+    .add-btn { background: #edf5dc; color: var(--green-dark); width: 34px; height: 34px; border-radius: 10px; font-size: 1.35rem; line-height: 1; transition: .2s; }
+    .add-btn:hover { background: var(--lime); transform: rotate(90deg); }
+
+    .benefits { display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; margin-bottom: 70px; }
+    .benefit { background: white; border: 1px solid var(--line); border-radius: 17px; padding: 23px; display: flex; gap: 14px; align-items: flex-start; }
+    .benefit-icon { width: 38px; height: 38px; flex: 0 0 auto; border-radius: 11px; background: var(--lime); display: grid; place-items: center; font-size: 1.2rem; }
+    .benefit h3 { font-size: .93rem; margin-bottom: 4px; }
+    .benefit p { color: var(--muted); font-size: .8rem; }
+
+    footer { background: var(--green-dark); color: #d6ebd4; padding: 34px 5vw; }
+    .footer-inner { width: min(1180px, 90vw); margin: auto; display: flex; justify-content: space-between; gap: 25px; align-items: center; }
+    footer .brand-name { color: white; }
+    footer small { color: #a9c5ae; }
+
+    .cart-drawer { position: fixed; z-index: 40; inset: 0 0 0 auto; width: min(410px, 100%); background: white; box-shadow: -14px 0 40px rgba(0,0,0,.14); transform: translateX(105%); transition: transform .3s ease; display: flex; flex-direction: column; }
+    .cart-drawer.open { transform: translateX(0); }
+    .cart-header { display: flex; align-items: center; justify-content: space-between; padding: 23px; border-bottom: 1px solid var(--line); }
+    .cart-header h2 { letter-spacing: -.05em; }
+    .close-cart { background: #f2f5ef; width: 34px; height: 34px; border-radius: 9px; font-size: 1.2rem; }
+    .cart-items { flex: 1; overflow-y: auto; padding: 18px 23px; }
+    .empty { color: var(--muted); text-align: center; padding: 70px 15px; }
+    .cart-item { display: flex; align-items: center; gap: 12px; padding: 13px 0; border-bottom: 1px solid var(--line); }
+    .cart-item-icon { width: 48px; height: 48px; background: #eef6dc; border-radius: 11px; display: grid; place-items: center; font-size: 1.65rem; }
+    .cart-item-info { flex: 1; }
+    .cart-item-info strong { font-size: .88rem; display: block; }
+    .cart-item-info small { color: var(--muted); }
+    .qty { display: flex; align-items: center; gap: 7px; }
+    .qty button { background: #eff3eb; width: 23px; height: 23px; border-radius: 6px; }
+    .cart-footer { padding: 22px 23px; border-top: 1px solid var(--line); }
+    .total { display: flex; justify-content: space-between; font-size: 1.08rem; font-weight: 850; margin-bottom: 16px; }
+    .checkout { display: block; width: 100%; text-align: center; background: var(--green); color: white; padding: 14px; border-radius: 11px; font-weight: 800; }
+    .overlay { position: fixed; inset: 0; background: rgba(13, 25, 19, .38); z-index: 30; opacity: 0; pointer-events: none; transition: .3s; }
+    .overlay.show { opacity: 1; pointer-events: auto; }
+    .toast { position: fixed; bottom: 23px; left: 50%; transform: translate(-50%, 100px); background: var(--green-dark); color: white; padding: 12px 18px; border-radius: 10px; z-index: 60; opacity: 0; transition: .25s; font-size: .88rem; }
+    .toast.show { opacity: 1; transform: translate(-50%, 0); }
+
+    @media (max-width: 900px) {
+      .nav { flex-wrap: wrap; padding: 14px 0; gap: 14px; }
+      .search { order: 3; flex-basis: 100%; max-width: none; }
+      .nav-links { display: none; }
+      .hero { grid-template-columns: 1fr; }
+      .products { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 600px) {
+      .topbar { justify-content: center; text-align: center; }
+      .topbar span:last-child { display: none; }
+      .hero { margin-top: 20px; margin-bottom: 40px; }
+      .hero-card { min-height: 270px; }
+      .section-head { align-items: start; flex-direction: column; }
+      .benefits { grid-template-columns: 1fr; margin-bottom: 45px; }
+      .products { gap: 11px; }
+      .product-visual { height: 145px; font-size: 4rem; }
+      .product-info { padding: 12px; }
+      .product h3 { font-size: .88rem; }
+      .price { font-size: .98rem; }
+      .footer-inner { align-items: flex-start; flex-direction: column; }
+    }
+  </style>
+</head>
+<body>
+  <div class="topbar"><span>Entrega gratis en compras desde <strong>$25</strong></span><span>Abierto hoy · 7:00 am — 10:00 pm</span></div>
+
+  <header>
+    <nav class="nav">
+      <a class="brand" href="#inicio" aria-label="Mercadito inicio">
+        <div class="brand-mark">✦</div><div class="brand-name">merca<span>dito</span></div>
+      </a>
+      <div class="search"><span>⌕</span><input id="searchInput" type="search" placeholder="¿Qué estás buscando hoy?" aria-label="Buscar productos" /></div>
+      <div class="nav-links"><a href="#productos">Productos</a><a href="#beneficios">Beneficios</a></div>
+      <button class="cart-btn" id="openCart">🛒 <span>Carrito</span><b class="cart-count" id="cartCount">0</b></button>
+    </nav>
+  </header>
+
+  <section class="hero" id="inicio">
+    <div class="hero-copy">
+      <div class="eyebrow">Lo esencial, más cerca</div>
+      <h1>Compra fácil.<br />Vive fresco.</h1>
+      <p>Todo lo que necesitas para tu día, seleccionado con cariño y listo para llegar a tu puerta.</p>
+      <a class="primary" href="#productos">Ver productos <span style="margin-left:10px">↗</span></a>
+    </div>
+    <div class="hero-card">
+      <span class="tag">OFERTA DE LA SEMANA</span>
+      <div><h2>2×1 en frutas de temporada</h2><small>Frescas, locales y llenas de sabor.</small></div>
+    </div>
+  </section>
+
+  <main>
+    <section aria-labelledby="cat-title">
+      <div class="section-head"><div><h2 id="cat-title">Compra por categoría</h2><p>Encuentra tus favoritos en un solo lugar.</p></div></div>
+      <div class="category-row" id="categoryRow">
+        <button class="category active" data-category="Todos"><span class="category-icon">✦</span><span>Todos</span></button>
+        <button class="category" data-category="Frutas"><span class="category-icon">🍎</span><span>Frutas</span></button>
+        <button class="category" data-category="Despensa"><span class="category-icon">🥫</span><span>Despensa</span></button>
+        <button class="category" data-category="Bebidas"><span class="category-icon">🥤</span><span>Bebidas</span></button>
+        <button class="category" data-category="Snacks"><span class="category-icon">🍿</span><span>Snacks</span></button>
+        <button class="category" data-category="Limpieza"><span class="category-icon">🧼</span><span>Limpieza</span></button>
+      </div>
+    </section>
+
+    <section id="productos" aria-labelledby="products-title">
+      <div class="section-head"><div><h2 id="products-title">Los más elegidos</h2><p id="resultText">Productos para llenar tu despensa.</p></div><span style="font-size:.84rem;color:var(--muted)">8 productos</span></div>
+      <div class="products" id="productsGrid">
+        <article class="product" data-category="Frutas" data-name="Manzanas rojas">
+          <div class="product-visual"><span class="badge">Oferta</span>🍎</div><div class="product-info"><small class="product-category">Frutas</small><h3>Manzanas rojas · 1 kg</h3><div class="product-bottom"><span class="price">$3.49</span><button class="add-btn" data-id="manzanas" data-name="Manzanas rojas" data-price="3.49" data-icon="🍎" aria-label="Agregar manzanas">+</button></div></div>
+        </article>
+        <article class="product" data-category="Despensa" data-name="Café molido">
+          <div class="product-visual">☕</div><div class="product-info"><small class="product-category">Despensa</small><h3>Café molido intenso · 250 g</h3><div class="product-bottom"><span class="price">$5.90</span><button class="add-btn" data-id="cafe" data-name="Café molido" data-price="5.90" data-icon="☕" aria-label="Agregar café">+</button></div></div>
+        </article>
+        <article class="product" data-category="Bebidas" data-name="Jugo de naranja">
+          <div class="product-visual"><span class="badge">Nuevo</span>🍊</div><div class="product-info"><small class="product-category">Bebidas</small><h3>Jugo de naranja natural · 1 L</h3><div class="product-bottom"><span class="price">$2.75</span><button class="add-btn" data-id="jugo" data-name="Jugo de naranja" data-price="2.75" data-icon="🍊" aria-label="Agregar jugo">+</button></div></div>
+        </article>
+        <article class="product" data-category="Snacks" data-name="Papas artesanales">
+          <div class="product-visual">🥔</div><div class="product-info"><small class="product-category">Snacks</small><h3>Papas artesanales · 150 g</h3><div class="product-bottom"><span class="price">$2.30</span><button class="add-btn" data-id="papas" data-name="Papas artesanales" data-price="2.30" data-icon="🥔" aria-label="Agregar papas">+</button></div></div>
+        </article>
+        <article class="product" data-category="Despensa" data-name="Pan artesanal">
+          <div class="product-visual">🍞</div><div class="product-info"><small class="product-category">Despensa</small><h3>Pan artesanal de masa madre</h3><div class="product-bottom"><span class="price">$4.20</span><button class="add-btn" data-id="pan" data-name="Pan artesanal" data-price="4.20" data-icon="🍞" aria-label="Agregar pan">+</button></div></div>
+        </article>
+        <article class="product" data-category="Frutas" data-name="Aguacate hass">
+          <div class="product-visual">🥑</div><div class="product-info"><small class="product-category">Frutas</small><h3>Aguacate hass · 2 unidades</h3><div class="product-bottom"><span class="price">$3.80</span><button class="add-btn" data-id="aguacate" data-name="Aguacate hass" data-price="3.80" data-icon="🥑" aria-label="Agregar aguacate">+</button></div></div>
+        </article>
+        <article class="product" data-category="Limpieza" data-name="Jabón líquido">
+          <div class="product-visual">🧴</div><div class="product-info"><small class="product-category">Limpieza</small><h3>Jabón líquido cítrico · 500 ml</h3><div class="product-bottom"><span class="price">$3.25</span><button class="add-btn" data-id="jabon" data-name="Jabón líquido" data-price="3.25" data-icon="🧴" aria-label="Agregar jabón">+</button></div></div>
+        </article>
+        <article class="product" data-category="Bebidas" data-name="Agua mineral">
+          <div class="product-visual">💧</div><div class="product-info"><small class="product-category">Bebidas</small><h3>Agua mineral · 6 × 500 ml</h3><div class="product-bottom"><span class="price">$4.50</span><button class="add-btn" data-id="agua" data-name="Agua mineral" data-price="4.50" data-icon="💧" aria-label="Agregar agua">+</button></div></div>
+        </article>
+      </div>
+    </section>
+
+    <section class="benefits" id="beneficios" aria-label="Beneficios">
+      <div class="benefit"><div class="benefit-icon">⚡</div><div><h3>Entrega rápida</h3><p>Recibe tu pedido en menos de 45 minutos.</p></div></div>
+      <div class="benefit"><div class="benefit-icon">♡</div><div><h3>Siempre fresco</h3><p>Elegimos cada producto como si fuera para nosotros.</p></div></div>
+      <div class="benefit"><div class="benefit-icon">↺</div><div><h3>Compra sin complicaciones</h3><p>Si no te encanta, lo solucionamos.</p></div></div>
+    </section>
+  </main>
+
+  <footer><div class="footer-inner"><div class="brand"><div class="brand-mark">✦</div><div class="brand-name">merca<span>dito</span></div></div><small>© 2025 Mercadito · Hecho para tu barrio</small><small>hola@mercadito.com</small></div></footer>
+
+  <div class="overlay" id="overlay"></div>
+  <aside class="cart-drawer" id="cartDrawer" aria-label="Carrito de compras">
+    <div class="cart-header"><h2>Tu carrito</h2><button class="close-cart" id="closeCart" aria-label="Cerrar carrito">×</button></div>
+    <div class="cart-items" id="cartItems"><div class="empty">Tu carrito está esperando<br />algo rico.</div></div>
+    <div class="cart-footer"><div class="total"><span>Total</span><span id="cartTotal">$0.00</span></div><button class="checkout" id="checkout">Continuar al pago →</button></div>
+  </aside>
+  <div class="toast" id="toast">Producto agregado al carrito</div>
+
+  <script>
+    const cart = {};
+    const drawer = document.getElementById('cartDrawer');
+    const overlay = document.getElementById('overlay');
+    const cartItems = document.getElementById('cartItems');
+    const cartCount = document.getElementById('cartCount');
+    const cartTotal = document.getElementById('cartTotal');
+    const toast = document.getElementById('toast');
+
+    function money(value) { return '$' + value.toFixed(2); }
+    function showToast(text) { toast.textContent = text; toast.classList.add('show'); setTimeout(() => toast.classList.remove('show'), 1800); }
+    function openCart() { drawer.classList.add('open'); overlay.classList.add('show'); }
+    function closeCart() { drawer.classList.remove('open'); overlay.classList.remove('show'); }
+
+    function renderCart() {
+      const items = Object.values(cart);
+      const totalItems = items.reduce((sum, item) => sum + item.qty, 0);
+      const total = items.reduce((sum, item) => sum + item.price * item.qty, 0);
+      cartCount.textContent = totalItems;
+      cartTotal.textContent = money(total);
+      if (!items.length) { cartItems.innerHTML = '<div class="empty">Tu carrito está esperando<br />algo rico.</div>'; return; }
+      cartItems.innerHTML = items.map(item => `
+        <div class="cart-item"><div class="cart-item-icon">${item.icon}</div><div class="cart-item-info"><strong>${item.name}</strong><small>${money(item.price)} · ${money(item.price * item.qty)}</small></div><div class="qty"><button onclick="changeQty('${item.id}', -1)">−</button><b>${item.qty}</b><button onclick="changeQty('${item.id}', 1)">+</button></div></div>
+      `).join('');
+    }
+    function addToCart(data) { if (!cart[data.id]) cart[data.id] = {...data, price: Number(data.price), qty: 0}; cart[data.id].qty++; renderCart(); showToast(`${data.name} agregado`); }
+    function changeQty(id, amount) { if (!cart[id]) return; cart[id].qty += amount; if (cart[id].qty <= 0) delete cart[id]; renderCart(); }
+
+    document.querySelectorAll('.add-btn').forEach(btn => btn.addEventListener('click', () => addToCart(btn.dataset)));
+    document.getElementById('openCart').addEventListener('click', openCart);
+    document.getElementById('closeCart').addEventListener('click', closeCart);
+    overlay.addEventListener('click', closeCart);
+    document.getElementById('checkout').addEventListener('click', () => {
+      if (!Object.keys(cart).length) { showToast('Agrega productos para continuar'); return; }
+      showToast('¡Pedido listo! Esta demo no procesa pagos.');
+    });
+
+    const products = [...document.querySelectorAll('.product')];
+    let activeCategory = 'Todos';
+    function filterProducts() {
+      const term = document.getElementById('searchInput').value.toLowerCase().trim();
+      let visible = 0;
+      products.forEach(product => {
+        const matchCategory = activeCategory === 'Todos' || product.dataset.category === activeCategory;
+        const matchSearch = product.dataset.name.toLowerCase().includes(term) || product.dataset.category.toLowerCase().includes(term);
+        const show = matchCategory && matchSearch;
+        product.classList.toggle('hide', !show); if (show) visible++;
+      });
+      document.getElementById('resultText').textContent = visible ? `${visible} producto${visible === 1 ? '' : 's'} para elegir.` : 'No encontramos ese producto. Prueba con otra búsqueda.';
+    }
+    document.querySelectorAll('.category').forEach(button => button.addEventListener('click', () => {
+      document.querySelectorAll('.category').forEach(item => item.classList.remove('active'));
+      button.classList.add('active'); activeCategory = button.dataset.category; filterProducts();
+    }));
+    document.getElementById('searchInput').addEventListener('input', filterProducts);
+    renderCart();
+  </script>
+</body>
+</html>
